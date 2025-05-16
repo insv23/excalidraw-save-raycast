@@ -15,18 +15,18 @@
       "name": "save-excalidraw-link",
       "title": "Save excalidraw link",
       "subtitle": "Create a new excalidraw-save item",
-      "description": "",
-      "mode": "no-view"
+      "description": "Save a new Excalidraw Live collaboration link",
+      "mode": "view"
     },
     {
       "name": "list-excalidraw-links",
       "title": "List excalidraw links",
-      "description": "",
-      "mode": "no-view"
+      "description": "List all saved Excalidraw Live collaboration links",
+      "mode": "view"
     }
   ],
   "dependencies": {
-    "@raycast/api": "^1.98.4",
+    "@raycast/api": "^1.96.3",
     "@raycast/utils": "^1.17.0"
   },
   "devDependencies": {
