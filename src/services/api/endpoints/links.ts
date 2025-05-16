@@ -16,3 +16,9 @@ export const createLink = async (
 export const getLinks = async (): Promise<Link[]> => {
 	return fetchWithAuth<Link[]>("/api/links", { method: "GET" });
 };
+
+export const recordVisit = async (id: number): Promise<{ message: string }> => {
+	return fetchWithAuth<{ message: string }>(`/api/links/${id}/visit`, {
+		method: "POST",
+	});
+};

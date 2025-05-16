@@ -9,6 +9,7 @@ import {
 	Keyboard,
 } from "@raycast/api";
 import type { Link } from "../types";
+import { recordVisit } from "../services/api/endpoints/links";
 // import { LinkDetail } from "./LinkDetail";
 
 interface LinkItemProps {
@@ -50,7 +51,10 @@ export function LinkItem({ link, onRefresh }: LinkItemProps) {
 				<ActionPanel>
 					<Action.OpenInBrowser
 						url={link.url}
-						onOpen={() => console.log("Open in browser")} // TODO: 完成向 visit 端点发送请求
+						onOpen={async () => {
+							await recordVisit(link.id);
+                            onRefresh();
+						}}
 					/>
 					{/* <Action.Push
 						icon={Icon.Paragraph}
