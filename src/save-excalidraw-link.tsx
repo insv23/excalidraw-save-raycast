@@ -1,6 +1,7 @@
 import { Form, showToast, Toast, Action, ActionPanel } from "@raycast/api";
 import { useForm } from "@raycast/utils";
 import { createLink } from "./services/api/endpoints/links";
+import { urlValidation } from "./services/validation/url";
 
 interface FormValues {
 	url: string;
@@ -11,13 +12,8 @@ export default function Command() {
 	const { handleSubmit, itemProps } = useForm<FormValues>({
 		validation: {
 			url: (value) => {
-				if (!value) return "Required";
-				try {
-					new URL(value);
-					return undefined;
-				} catch (error) {
-					return "Invalid URL";
-				}
+				const result = urlValidation.format(value);
+				if (!result.isValid) return result.message;
 			},
 			description: (value) => {
 				if (!value) return "Required";
