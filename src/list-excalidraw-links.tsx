@@ -22,12 +22,16 @@ export default function Command() {
 		return true;
 	});
 
-	// Sort links by last_visited_at timestamp in descending order (most recently visited first)
-	const sortedLinks = [...filteredLinks].sort(
-		(a, b) => b.last_visited_at - a.last_visited_at,
-	);
-
-	// TODO: 将 pinned 的 links 放到最前面
+	// 排序逻辑：
+	// 1. 按照 pinned 状态分组（pinned=1 的在前）
+	// 2. 每组内按照 last_visited_at 降序排列（最新访问的在前）
+	const sortedLinks = [...filteredLinks].sort((a, b) => {
+		if (a.pinned !== b.pinned) {
+			return b.pinned - a.pinned;
+		}
+		
+		return b.last_visited_at - a.last_visited_at;
+	});
 
 	return (
 		<List
