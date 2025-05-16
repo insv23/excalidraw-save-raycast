@@ -10,7 +10,7 @@ import {
 } from "@raycast/api";
 import type { Link } from "../types";
 import { recordVisit } from "../services/api/endpoints/links";
-// import { LinkDetail } from "./LinkDetail";
+import { LinkDetail } from "./LinkDetail";
 
 interface LinkItemProps {
 	link: Link;
@@ -53,15 +53,14 @@ export function LinkItem({ link, onRefresh }: LinkItemProps) {
 						url={link.url}
 						onOpen={async () => {
 							await recordVisit(link.id);
-                            onRefresh();
+							onRefresh();
 						}}
 					/>
-					{/* <Action.Push
+					<Action.Push
 						icon={Icon.Paragraph}
 						title="Edit"
 						target={<LinkDetail link={link} onRefresh={onRefresh} />}
-                        // TODO: 完成编辑逻辑
-					/> */}
+					/>
 					<Action
 						icon={Icon.Trash}
 						title="Delete Link"
