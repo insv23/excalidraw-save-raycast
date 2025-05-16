@@ -1,4 +1,12 @@
-import { Form, showToast, Toast, Action, ActionPanel } from "@raycast/api";
+import {
+	Form,
+	showToast,
+	Toast,
+	Action,
+	ActionPanel,
+	launchCommand,
+	LaunchType,
+} from "@raycast/api";
 import { useForm } from "@raycast/utils";
 import { createLink } from "./services/api/endpoints/links";
 import { urlValidation } from "./services/validation/url";
@@ -29,7 +37,11 @@ export default function Command() {
 				await createLink({ url: values.url, description: values.description });
 				toast.style = Toast.Style.Success;
 				toast.title = "Link created";
-				// TODO: 创建完成后，是退出 Raycast 还是跳转到 list 页面
+
+				await launchCommand({
+					name: "list-excalidraw-links",
+					type: LaunchType.UserInitiated,
+				});
 			} catch (error) {
 				toast.style = Toast.Style.Failure;
 				toast.title = "Failed to create link";
