@@ -1,0 +1,72 @@
+// src/components/LinkItem.tsx
+import {
+	List,
+	ActionPanel,
+	Action,
+	Icon,
+	confirmAlert,
+	Alert,
+	Keyboard,
+} from "@raycast/api";
+import type { Link } from "../types";
+// import { LinkDetail } from "./LinkDetail";
+
+interface LinkItemProps {
+	link: Link;
+	onRefresh: () => void;
+}
+
+export function LinkItem({ link, onRefresh }: LinkItemProps) {
+	const handleDelete = async () => {
+		if (
+			await confirmAlert({
+				title: "Delete Link",
+				message: "Are you sure you want to delete this link?",
+				primaryAction: {
+					title: "Delete",
+					style: Alert.ActionStyle.Destructive,
+				},
+				dismissAction: {
+					title: "Cancel",
+					style: Alert.ActionStyle.Cancel,
+				},
+			})
+		) {
+			// await deleteLink(link.id); // TODO: 完成删除逻辑
+			onRefresh();
+		}
+	};
+
+	return (
+		<List.Item
+			title={link.description}
+			accessories={[
+				{
+					icon: Icon.Eye,
+					text: new Date(link.last_visited_at * 1000).toLocaleString(),
+				},
+			]}
+			actions={
+				<ActionPanel>
+					<Action.OpenInBrowser
+						url={link.url}
+						onOpen={() => console.log("Open in browser")} // TODO: 完成向 visit 端点发送请求
+					/>
+					{/* <Action.Push
+						icon={Icon.Paragraph}
+						title="Edit"
+						target={<LinkDetail link={link} onRefresh={onRefresh} />}
+                        // TODO: 完成编辑逻辑
+					/> */}
+					<Action
+						icon={Icon.Trash}
+						title="Delete Link"
+						style={Action.Style.Destructive}
+						shortcut={Keyboard.Shortcut.Common.Remove}
+						onAction={handleDelete}
+					/>
+				</ActionPanel>
+			}
+		/>
+	);
+}

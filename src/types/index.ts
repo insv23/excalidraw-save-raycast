@@ -6,11 +6,11 @@ export interface Preferences {
 }
 
 export interface Link {
-	id: string;
+	id: number;
 	url: string;
 	description: string;
-	created_at: string;
-	last_visited_at: string;
+	created_at: number;
+	last_visited_at: number;
 	pinned: number;
 	archived: number;
 }

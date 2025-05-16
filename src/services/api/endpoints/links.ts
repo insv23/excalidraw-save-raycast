@@ -1,6 +1,7 @@
 // src/services/api/endpoints/links.ts
 
 import { fetchWithAuth } from "../client";
+import type { Link } from "../../../types";
 import type { CreateLinkRequestData } from "../types";
 
 export const createLink = async (
@@ -12,3 +13,6 @@ export const createLink = async (
 	});
 };
 
+export const getLinks = async (): Promise<Link[]> => {
+	return fetchWithAuth<Link[]>("/api/links", { method: "GET" });
+};
