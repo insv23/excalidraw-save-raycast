@@ -41,6 +41,9 @@ export function LinkItem({ link, onRefresh }: LinkItemProps) {
 
 	return (
 		<List.Item
+			icon={
+				link.pinned === 1 ? Icon.Tack : link.archived === 1 ? Icon.Folder : ""
+			}
 			title={link.description}
 			accessories={[
 				{
