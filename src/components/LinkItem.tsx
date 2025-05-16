@@ -1,4 +1,5 @@
 // src/components/LinkItem.tsx
+
 import {
 	List,
 	ActionPanel,
@@ -9,7 +10,7 @@ import {
 	Keyboard,
 } from "@raycast/api";
 import type { Link } from "../types";
-import { recordVisit } from "../services/api/endpoints/links";
+import { recordVisit, deleteLink } from "../services/api/endpoints/links";
 import { LinkDetail } from "./LinkDetail";
 
 interface LinkItemProps {
@@ -33,7 +34,7 @@ export function LinkItem({ link, onRefresh }: LinkItemProps) {
 				},
 			})
 		) {
-			// await deleteLink(link.id); // TODO: 完成删除逻辑
+			await deleteLink(link.id);
 			onRefresh();
 		}
 	};

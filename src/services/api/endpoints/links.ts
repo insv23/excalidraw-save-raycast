@@ -25,10 +25,16 @@ export const recordVisit = async (id: number): Promise<{ message: string }> => {
 
 export const updateLink = async (
 	id: number,
-	data: UpdateLinkRequestData
+	data: UpdateLinkRequestData,
 ): Promise<{ message: string }> => {
 	return fetchWithAuth<{ message: string }>(`/api/links/${id}`, {
 		method: "PATCH",
 		data: data,
+	});
+};
+
+export const deleteLink = async (id: number): Promise<{ message: string }> => {
+	return fetchWithAuth<{ message: string }>(`/api/links/${id}`, {
+		method: "DELETE",
 	});
 };
